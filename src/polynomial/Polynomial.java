@@ -1,7 +1,7 @@
 package polynomial;
 
 public class Polynomial {
-	private int poly[] = new int [100];
+	private double poly[] = new double [100];
 	private int powTen (int n){
 		int res = 1;
 		for (int i = 0; i < n; i++)
@@ -38,16 +38,18 @@ public class Polynomial {
 				pow = 0;
 			}		
 	}
-	public int getNum(int pow){
+	public double getNum(int pow){
 		return poly[pow];
 	}
 	public String toString(){
 		String res = "";
 		for (int i = 99; i >=0; i--)
-			if (poly[i]>0 && res == "" || poly[i]<0)
+			if (poly[i]>0 && res == "")
 				res = res + poly[i]+"x^"+i;
+			else if (poly[i]<0)
+				res = res + " "+ poly[i]+"x^"+i;
 			else if (poly[i]>0)
-				res = res +"+"+ poly[i]+"x^"+i;
+				res = res +" +"+ poly[i]+"x^"+i;
 		if (res == "")
 			res = res + 0;
 		return res;
@@ -91,36 +93,61 @@ public class Polynomial {
 		return res;
 
 	}
-	private void powerUp (int n){
+	private Polynomial powerUp (int n){
+		Polynomial res = new Polynomial("");
 		for (int i = getSize(); i>=0;i--)
-			poly[i+n]= poly[i];
+			res.poly[i+n]= poly[i];
 		for (int i = 0; i<n;i++)
-			poly[i]=0;
+			res.poly[i]=0;
+		return res;
 	}
-	private Polynomial multByConst(int n){
+	private Polynomial multByConst(double n){
 		Polynomial res = new Polynomial("");
 		for (int i = 0; i<100; i++)
 			res.poly[i]=poly[i]*n;
 		return res;
 	}
-	public Polynomial multipy(Polynomial p){
+	public Polynomial multipy(Polynomial multiplier){
 		Polynomial res = new Polynomial("");
-		int length = p.getSize();
+		int length = multiplier.getSize();
 		if (length == 0) 
 			return res;
-		res = res.add(this.multByConst(p.poly[length-1]));
+		res = res.add(this.multByConst(multiplier.poly[length-1]));
 		for (int i = length-2; i>=0 ; i--){
 			res.powerUp(1);
-			res = res.add(this.multByConst(p.poly[i]));
+			res = res.add(this.multByConst(multiplier.poly[i]));
 		}	
 		return res;
 	}
+	public Polynomial divide(Polynomial divisor){
+		Polynomial res = new Polynomial("");
+		Polynomial mod = clone();
+		int modLen = mod.getSize();
+		int divisorLen = divisor.getSize();
+		for (int i = modLen - divisorLen; i >=0  ;i--){
+			res.poly[i]=mod.poly[modLen-1]/divisor.poly[divisorLen-1];
+			mod = mod.subtract(divisor.powerUp(modLen-divisorLen).multByConst(res.poly[i]));
+			modLen--;
+		}		
+		return res;
+	}
+	public Polynomial mod(Polynomial divisor){
+		Polynomial res = new Polynomial("");
+		Polynomial mod = clone();
+		int modLen = mod.getSize();
+		int divisorLen = divisor.getSize();
+		for (int i = modLen - divisorLen; i >=0  ;i--){
+			res.poly[i]=mod.poly[modLen-1]/divisor.poly[divisorLen-1];
+			mod = mod.subtract(divisor.powerUp(modLen-divisorLen).multByConst(res.poly[i]));
+			modLen--;
+		}		
+		return mod;
+	}
 	public static void main(String[] args) {
-		Polynomial p1 = new Polynomial("1x^0+3x^2");
-		Polynomial p2 = new Polynomial("2x^10");
-		Polynomial mult = p1.multipy(p2);
-		System.out.println(p1);
-		System.out.println(p2);
-		System.out.println(mult);
+		Polynomial p1 = new Polynomial("1x^3-12x^2-42x^0");
+		Polynomial p2 = new Polynomial("1x^1-3x^0");
+		System.out.println(p1+"      /      "+p2);
+		System.out.println("res: "+ p1.divide(p2));
+		System.out.println("mod: "+ p1.mod(p2));
 	}
 }
