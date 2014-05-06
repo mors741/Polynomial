@@ -52,9 +52,11 @@ public class Polynomial {
 			res = res + 0;
 		return res;
 	}
-	public void copyFrom(Polynomial from) {
+	public Polynomial clone() {
+		Polynomial res = new Polynomial("");
 		for (int i = 0; i < 100; i++)
-			poly[i]=from.getNum(i);
+			res.poly[i]=poly[i];
+		return res;
 	}
 	public boolean equals(Polynomial to){
 		for (int i = 0; i < 100; i++)
@@ -76,19 +78,36 @@ public class Polynomial {
 		for (int i = 0; i < length; i++)
 			poly[i]=-poly[i];
 	}
-	public void add(Polynomial p){
+	public Polynomial add(Polynomial p){
+		Polynomial res = new Polynomial("");
 		int length = getSize();
 		for (int i = 0; i < length; i++)
-			poly[i]=poly[i]+p.getNum(i);
+			res.poly[i]=poly[i]+p.getNum(i);
+		return res;
 	}
-	public void subtract(Polynomial p){
+	public Polynomial subtract(Polynomial p){
+		Polynomial res = new Polynomial("");
 		int length = getSize();
 		for (int i = 0; i < length; i++)
-			poly[i]=poly[i]-p.getNum(i);
+			res.poly[i]=poly[i]-p.getNum(i);
+		return res;
+
+	}
+	private void powerUp (int n){
+		for (int i = getSize(); i>=0;i--)
+			poly[i+n]= poly[i];
+		for (int i = 0; i<n;i++)
+			poly[i]=0;
+	}
+	public Polynomial multipy(Polynomial p){
+		Polynomial res = new Polynomial("");
+		
+		return res;
 	}
 	public static void main(String[] args) {
 		Polynomial p = new Polynomial("-x^1+3x^2+123x^9-33x^16");
-		System.out.println(p);
+		Polynomial c = p.clone();
+		System.out.println(c);
 		System.out.println(p.maxPow());
 	}
 }
