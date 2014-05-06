@@ -80,15 +80,13 @@ public class Polynomial {
 	}
 	public Polynomial add(Polynomial p){
 		Polynomial res = new Polynomial("");
-		int length = getSize();
-		for (int i = 0; i < length; i++)
-			res.poly[i]=poly[i]+p.getNum(i);
+		for (int i = 0; i < 100; i++)
+			res.poly[i]=poly[i]+p.poly[i];
 		return res;
 	}
 	public Polynomial subtract(Polynomial p){
 		Polynomial res = new Polynomial("");
-		int length = getSize();
-		for (int i = 0; i < length; i++)
+		for (int i = 0; i < 100; i++)
 			res.poly[i]=poly[i]-p.getNum(i);
 		return res;
 
@@ -99,15 +97,30 @@ public class Polynomial {
 		for (int i = 0; i<n;i++)
 			poly[i]=0;
 	}
+	private Polynomial multByConst(int n){
+		Polynomial res = new Polynomial("");
+		for (int i = 0; i<100; i++)
+			res.poly[i]=poly[i]*n;
+		return res;
+	}
 	public Polynomial multipy(Polynomial p){
 		Polynomial res = new Polynomial("");
-		
+		int length = p.getSize();
+		if (length == 0) 
+			return res;
+		res = res.add(this.multByConst(p.poly[length-1]));
+		for (int i = length-2; i>=0 ; i--){
+			res.powerUp(1);
+			res = res.add(this.multByConst(p.poly[i]));
+		}	
 		return res;
 	}
 	public static void main(String[] args) {
-		Polynomial p = new Polynomial("-x^1+3x^2+123x^9-33x^16");
-		Polynomial c = p.clone();
-		System.out.println(c);
-		System.out.println(p.maxPow());
+		Polynomial p1 = new Polynomial("1x^0+3x^2");
+		Polynomial p2 = new Polynomial("2x^10");
+		Polynomial mult = p1.multipy(p2);
+		System.out.println(p1);
+		System.out.println(p2);
+		System.out.println(mult);
 	}
 }
