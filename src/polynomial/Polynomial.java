@@ -13,18 +13,29 @@ public class Polynomial {
 			poly[i]=input[i];
 	}
 	public Polynomial(String input) {
-		int j,num =0;
-		for (int i = 0; i < input.length(); i++)
+		int j,num=0,pow =0;
+		int length = input.length();
+		for (int i = 0; i < length; i++)
 			if (input.charAt(i) == '^'){
-				j = i-2;
-				while (j != -1 && input.charAt(j) != '+' && input.charAt(j) != '-'){
-					num = num + ((int)input.charAt(j)-48) * powTen(i-j-2);
-					j--;
+				if (i==1 || input.charAt(i-2) == '+')
+					num = 1;
+				else if (input.charAt(i-2) == '-')
+					num = -1;
+				else{
+					j = i-2;
+					while (j != -1 && input.charAt(j) != '+' && input.charAt(j) != '-'){
+						num = num + ((int)input.charAt(j)-48) * powTen(i-j-2);
+						j--;
+					}
+					if (j!=-1 && input.charAt(j) == '-')
+						num=-num;
 				}
-				if (j!=-1 && input.charAt(j) == '-')
-					num=-num;
-				poly[(int)input.charAt(i+1)-48]=num;
+				pow = (int)input.charAt(i+1)-48;
+				if (i+2 != length && input.charAt(i+2)!='+' && input.charAt(i+2)!='-')
+					pow = 10*pow + (int)input.charAt(i+2)-48;
+				poly[pow]=num;
 				num = 0;
+				pow = 0;
 			}		
 	}
 	public int getNum(int pow){
@@ -52,7 +63,7 @@ public class Polynomial {
 		return true;
 	}
 	public static void main(String[] args) {
-		Polynomial p = new Polynomial("-1x^1+3x^2+123x^99-33x^6");
+		Polynomial p = new Polynomial("-x^1+3x^2+123x^99-33x^16");
 		Polynomial copy = new Polynomial("");
 		System.out.println(p);
 		System.out.println(copy.equals(p));
