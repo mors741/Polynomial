@@ -71,8 +71,23 @@ public class Polynomial {
 	public int maxPow(){
 		return getSize()-1;
 	}
+	public void changeSign (){
+		int length = getSize();
+		for (int i = 0; i < length; i++)
+			poly[i]=-poly[i];
+	}
+	public void add(Polynomial p){
+		int length = getSize();
+		for (int i = 0; i < length; i++)
+			poly[i]=poly[i]+p.getNum(i);
+	}
+	public void subtract(Polynomial p){
+		int length = getSize();
+		for (int i = 0; i < length; i++)
+			poly[i]=poly[i]-p.getNum(i);
+	}
 	public static void main(String[] args) {
-		Polynomial p = new Polynomial("-x^1+3x^2+123x^99-33x^16");
+		Polynomial p = new Polynomial("-x^1+3x^2+123x^9-33x^16");
 		System.out.println(p);
 		System.out.println(p.maxPow());
 	}
