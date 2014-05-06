@@ -62,10 +62,18 @@ public class Polynomial {
 				return false;
 		return true;
 	}
+	private int getSize(){
+		for (int i = 99; i>-1; i--)
+			if (poly[i] != 0)
+				return i+1;
+		return 0;
+	}
+	public int maxPow(){
+		return getSize()-1;
+	}
 	public static void main(String[] args) {
 		Polynomial p = new Polynomial("-x^1+3x^2+123x^99-33x^16");
-		Polynomial copy = new Polynomial("");
 		System.out.println(p);
-		System.out.println(copy.equals(p));
+		System.out.println(p.maxPow());
 	}
 }
