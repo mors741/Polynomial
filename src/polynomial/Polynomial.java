@@ -149,8 +149,8 @@ public class Polynomial {
 		System.out.println(p1+"      /      "+p2);
 		System.out.println("res: "+ p1.divide(p2));
 		System.out.println("mod: "+ p1.mod(p2));*/
-		SquarePolynomial a = new SquarePolynomial("x^2-2x^1+1x^0");
-		System.out.println(a);
-		a.fillFromFile("input.bin");
+		SquarePolynomial a = new SquarePolynomial("x^2-5x^1+4x^0");
+		System.out.println(a);	
+		a.findRoots();
 	}
 }

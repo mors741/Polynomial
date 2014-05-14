@@ -1,8 +1,8 @@
 
 package polynomial;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * @author evgeny
@@ -21,28 +21,29 @@ public class SquarePolynomial extends Polynomial {
 		super(fileName);
 		
 	}
-	public void fillFromFile(String fileName){
+	public void fillFromFile(String fileName, int num){
 		FileInputStream in;
 		 try {
-			 in = new FileInputStream("input.bin");
-			 double temp;
-			 for (int i = 0; i<3; i++){
-				 temp= BinFile.readDouble(in, 8,8);
-				 System.out.println(temp);
-			 }
-			 System.out.println(BinFile.readInt(in, 4,8));
+			 in = new FileInputStream(fileName);
+			 in.skip(32*num);
+			 if (in.available()<32)
+				 throw new EOFException("While reading has crossed the border of the file");
+			 for (int i = 2; i>=0; i--)
+				 poly[i]=BinFile.readDouble(in, 8,8);
+			 BinFile.readInt(in, 4,8);
 			 in.close();
+		 } 
+		 catch (Exception e){
+			 System.out.println(e);
 		 }
-		 catch(IOException e){
-			 System.out.println("Error"+e);
-		 }
-			 
 	}
-
-	
 	public void findRoots(){
 		double D = poly[1]*poly[1]-4*poly[0]*poly[2];
-		System.out.println("x1="+(-poly[1]- Math.sqrt(D))/(2*poly[2]));
-		System.out.println("x2="+(-poly[1]+ Math.sqrt(D))/(2*poly[2]));
+		if (D<0)
+			System.out.println("No real roots");
+		else{
+			System.out.println("x1="+(-poly[1]- Math.sqrt(D))/(2*poly[2]));
+			System.out.println("x2="+(-poly[1]+ Math.sqrt(D))/(2*poly[2]));
+		}
 	}
 }
