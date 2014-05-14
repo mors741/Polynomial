@@ -4,13 +4,7 @@ package polynomial;
 import java.io.EOFException;
 import java.io.FileInputStream;
 
-/**
- * @author evgeny
- *
- */
-
 public class SquarePolynomial extends Polynomial {
-
 	public SquarePolynomial(int[] input) {
 		super(input);
 	}
@@ -19,7 +13,6 @@ public class SquarePolynomial extends Polynomial {
 	}
 	public SquarePolynomial(String fileName, int num){
 		super(fileName);
-		
 	}
 	public void fillFromFile(String fileName, int num){
 		FileInputStream in;

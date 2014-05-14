@@ -144,12 +144,13 @@ public class Polynomial {
 		return mod;
 	}
 	public static void main(String[] args) {
-		/*Polynomial p1 = new Polynomial("1x^3-12x^2-42x^0");
+		Polynomial p1 = new Polynomial("1x^3-12x^2-42x^0");
 		Polynomial p2 = new Polynomial("1x^1-3x^0");
 		System.out.println(p1+"      /      "+p2);
 		System.out.println("res: "+ p1.divide(p2));
-		System.out.println("mod: "+ p1.mod(p2));*/
-		SquarePolynomial a = new SquarePolynomial("x^2-5x^1+4x^0");
+		System.out.println("mod: "+ p1.mod(p2));
+		SquarePolynomial a = new SquarePolynomial("");
+		a.fillFromFile("input.bin", 1);
 		System.out.println(a);	
 		a.findRoots();
 	}
