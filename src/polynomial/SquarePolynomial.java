@@ -11,9 +11,6 @@ public class SquarePolynomial extends Polynomial {
 	public SquarePolynomial(String input) {
 		super(input);
 	}
-	public SquarePolynomial(String fileName, int num){
-		super(fileName);
-	}
 	public void fillFromFile(String fileName, int num){
 		FileInputStream in;
 		 try {

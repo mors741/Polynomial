@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class BinFile {
+class BinFile {
 	public static int readInt(FileInputStream in, int intLen, int totalLen){
 		int res =0;
 		try{
