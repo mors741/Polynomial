@@ -75,7 +75,7 @@ public class Polynomial {
 	public int maxPow(){
 		return getSize()-1;
 	}
-	public void changeSign (){
+	public void changeSign(){
 		int length = getSize();
 		for (int i = 0; i < length; i++)
 			poly[i]=-poly[i];
@@ -145,13 +145,21 @@ public class Polynomial {
 	}
 	public static void main(String[] args) {
 		Polynomial p1 = new Polynomial("1x^3-12x^2-42x^0");
-		Polynomial p2 = new Polynomial("1x^1-3x^0");
+		Polynomial p2 = new Polynomial("x^1+13x^0");
+		System.out.println("p1: "+ p1);
+		System.out.println("p2: "+ p2);
+		System.out.println();	
+		System.out.println("sum: "+ p1.add(p2));
+		System.out.println("dif: "+p1.subtract(p2));
+		System.out.println("product: "+p1.multipy(p2));
+		System.out.println();
 		System.out.println(p1+"      /      "+p2);
-		System.out.println("res: "+ p1.divide(p2));
-		System.out.println("mod: "+ p1.mod(p2));
+		System.out.println("quotient: "+ p1.divide(p2));
+		System.out.println("remainder: "+ p1.mod(p2));
+		System.out.println();
 		SquarePolynomial a = new SquarePolynomial("");
 		a.fillFromFile("input.bin", 1);
-		System.out.println(a);	
+		System.out.println("a: "+a);	
 		a.findRoots();
 	}
 }
