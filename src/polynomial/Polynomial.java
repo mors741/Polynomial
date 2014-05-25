@@ -144,7 +144,7 @@ public class Polynomial {
 		return mod;
 	}
 	public static void main(String[] args) {
-		Polynomial p1 = new Polynomial("1x^3-12x^2-42x^0");
+		Polynomial p1 = new Polynomial("x^3-12x^2-42x^0");
 		Polynomial p2 = new Polynomial("x^1+13x^0");
 		System.out.println("p1: "+ p1);
 		System.out.println("p2: "+ p2);

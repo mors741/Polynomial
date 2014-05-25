@@ -11,9 +11,8 @@ class BinFile {
 			int ch[]=new int[intLen];
 			for (int i = 0; i<ch.length;i++)
 				ch[i] = in.read();
-			int temp;
 			for (int i = ch.length; i<totalLen;i++)
-				temp =in.read();
+				in.read();
 			for (int i=ch.length-1; i>=0;i--)
 				res+=(ch[i]<<(8*i));
 			return res;
@@ -33,9 +32,8 @@ class BinFile {
 			long ch[]=new long[doubleLen];
 			for (int i = 0; i<ch.length;i++)
 				ch[i] = in.read();
-			long temp;
 			for (int i = ch.length; i<totalLen;i++)
-				temp =in.read();
+				in.read();
 			long resT=0;
 			for (int i=ch.length-1; i>=0;i--)
 				resT+=(ch[i]<<(8*i));
